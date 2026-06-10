@@ -53,13 +53,16 @@ interface Task {
 	}[];
 }
 
-interface User {
-	id: string;
-	name: string;
-	email: string;
-	role: string;
-	department: string | null;
-}
+const formatDepartment = (dept: string | null | undefined) => {
+	if (!dept) return "";
+	const mapping: Record<string, string> = {
+		PRODUCT: "Product Management",
+		UIUX: "UI/UX Design",
+		FRONTEND: "Frontend Dev",
+		BACKEND: "Backend Dev",
+	};
+	return mapping[dept] || dept;
+};
 
 export default function BoardPage() {
 	const { user, logout, isAuthenticated } = useAuthStore();
@@ -574,7 +577,10 @@ export default function BoardPage() {
 						<div className="text-right hidden sm:block">
 							<p className="text-sm font-bold text-slate-200">{user.name}</p>
 							<p className="text-[11px] text-slate-400 font-semibold uppercase">
-								{user.role} {user.department ? `• ${user.department}` : ""}
+								{user.role}{" "}
+								{user.department
+									? `• ${formatDepartment(user.department)}`
+									: ""}
 							</p>
 						</div>
 
@@ -668,7 +674,7 @@ export default function BoardPage() {
 											}, [])
 											.map((u: any) => (
 												<option key={u.id} value={u.id}>
-													{u.name} ({u.department})
+													{u.name} ({formatDepartment(u.department)})
 												</option>
 											))}
 										{/* Add fallback names if none exists in tasks */}
@@ -910,7 +916,7 @@ export default function BoardPage() {
 												}, [])
 												.map((u: any) => (
 													<option key={u.id} value={u.id}>
-														{u.name} ({u.department})
+														{u.name} ({formatDepartment(u.department)})
 													</option>
 												))}
 											<option value="uiux-fallback">Rudi (UI/UX)</option>
@@ -1088,7 +1094,7 @@ export default function BoardPage() {
 														</strong>{" "}
 														(
 														{task.assignedTo
-															? task.assignedTo.department
+															? formatDepartment(task.assignedTo.department)
 															: "Unassigned"}
 														)
 													</span>

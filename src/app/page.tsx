@@ -265,7 +265,6 @@ export default function AuthPage() {
 											<option value="UIUX">UI/UX Design</option>
 											<option value="FRONTEND">Frontend Dev</option>
 											<option value="BACKEND">Backend Dev</option>
-											<option value="PRODUCT">Product Mgmt</option>
 										</select>
 									</div>
 								)}
