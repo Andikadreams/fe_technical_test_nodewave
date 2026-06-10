@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Inter", "system-ui", "-apple-system", sans-serif;
+
+	--color-primary-50: #eef2ff;
+	--color-primary-100: #e0e7ff;
+	--color-primary-200: #c7d2fe;
+	--color-primary-300: #a5b4fc;
+	--color-primary-400: #818cf8;
+	--color-primary-500: #6366f1;
+	--color-primary-600: #4f46e5;
+	--color-primary-700: #4338ca;
+	--color-primary-800: #3730a3;
+	--color-primary-900: #312e81;
+	--color-primary-950: #1e1b4b;
+
+	--color-nodewave-blue: #0a84ff;
+	--color-nodewave-dark: #070913;
+	--color-nodewave-surface: #0f132a;
+	--color-nodewave-border: #1f274a;
+	--color-nodewave-glow: rgba(10, 132, 255, 0.15);
+}
+
+@layer base {
+	body {
+		background-color: var(--color-nodewave-dark);
+		color: #f8fafc;
+		font-family: var(--font-sans);
+		overflow-x: hidden;
+	}
+}
+
+/* Glassmorphism custom classes */
+.glass-panel {
+	background: rgba(15, 19, 42, 0.75);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-card {
+	background: rgba(20, 26, 56, 0.5);
+	backdrop-filter: blur(8px);
+	border: 1px solid var(--color-nodewave-border);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+	border-color: var(--color-nodewave-blue);
+	box-shadow: 0 0 20px var(--color-nodewave-glow);
+	transform: translateY(-2px);
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-nodewave-dark);
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--color-nodewave-border);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: var(--color-nodewave-blue);
+}
+
+/* Dimmed Blocked State */
+.blocked-card {
+	opacity: 0.45;
+	filter: grayscale(40%);
+	pointer-events: none;
+	cursor: not-allowed;
+	position: relative;
+}
+
+/* Custom animations */
+@keyframes pulseGlow {
+	0%,
+	100% {
+		box-shadow: 0 0 15px rgba(10, 132, 255, 0.2);
+	}
+	50% {
+		box-shadow: 0 0 25px rgba(10, 132, 255, 0.4);
+	}
+}
+
+.glow-animation {
+	animation: pulseGlow 3s infinite;
+}
